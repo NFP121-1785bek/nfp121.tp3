@@ -3,6 +3,7 @@ package question2;
 import question1.PilePleineException;
 import question1.PileVideException;
 
+import java.util.Arrays;
 import java.util.Stack;
 
 public class Pile2 implements PileI {
@@ -19,27 +20,34 @@ public class Pile2 implements PileI {
      *            la taille de la pile, la taille doit etre > 0
      */
     public Pile2(int taille) {
-        // prevoir le cas <=0
-        // a completer
+        if (taille < 0)
+            taille = 6;
+
+        this.capacite = taille;
+        this.stk = new Stack<>();
     }
 
     // constructeur fourni
     public Pile2() {
-        this(0);
+        this(6);
     }
 
     public void empiler(Object o) throws PilePleineException {
-        // a completer
+        if (estPleine())
+            throw new PilePleineException();
+        stk.push(o);
     }
 
     public Object depiler() throws PileVideException {
-        // a completer
-        return null;
+        if (estVide())
+            throw new PileVideException();
+        return stk.pop();
     }
 
     public Object sommet() throws PileVideException {
-        // a completer
-        return null;
+        if (estVide())
+            throw new PileVideException();
+        return stk.lastElement();
     }
 
     /**
@@ -48,8 +56,7 @@ public class Pile2 implements PileI {
      * @return vrai si la pile est vide, faux autrement
      */
     public boolean estVide() {
-        // a completer
-        return false;
+        return stk.isEmpty();
     }
 
     /**
@@ -58,7 +65,10 @@ public class Pile2 implements PileI {
      * @return vrai si la pile est pleine, faux autrement
      */
     public boolean estPleine() {
-        // a completer
+        System.out.println(stk.size());
+        if (this.capacite == stk.size()) {
+            return true;
+        }
         return false;
     }
 
@@ -69,13 +79,21 @@ public class Pile2 implements PileI {
      * @return une representation en String d'une pile
      */
     public String toString() {
-        String s = "[";
-        // a completer
-        return s + "]";
+        StringBuffer sb = new StringBuffer("[");
+        for (int i = this.taille() - 1; i >= 0; i--) {
+            sb.append(stk.get(i).toString());
+            if (i > 0)
+                sb.append(", ");
+        }
+        sb.append("]");
+        return sb.toString();
     }
 
     public boolean equals(Object o) {
-        // a completer
+        if (o != null && o instanceof Pile2) {
+            Pile2 pile = (Pile2)o;
+            return pile.stk.equals(this.stk);
+        }
         return false;
     }
 
@@ -90,8 +108,7 @@ public class Pile2 implements PileI {
      * @return le nombre d'element
      */
     public int taille() {
-        // a completer
-        return 0;
+        return stk.size();
     }
 
     /**
@@ -100,8 +117,7 @@ public class Pile2 implements PileI {
      * @return le nombre d'element
      */
     public int capacite() {
-        // a completer
-        return 0;
+        return this.capacite;
     }
 
 } // Pile2.java

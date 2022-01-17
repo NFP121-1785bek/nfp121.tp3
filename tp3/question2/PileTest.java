@@ -14,14 +14,18 @@ public class PileTest extends junit.framework.TestCase {
     }
 
     public void test_Pile_estPleine() throws Exception {
-        PileI p = new question2.Pile(3);
+        PileI p = new question2.Pile(6);
         p.empiler(3);
         assertEquals(1, p.taille());
         p.empiler(2);
         assertEquals(2, p.taille());
         p.empiler(1);
         assertEquals(3, p.taille());
-
+        
+        p.empiler(4);
+        p.empiler(5);
+        p.empiler(6);
+        
         assertEquals(true, p.estPleine());
         assertEquals(p.taille(), p.capacite());
         try {
@@ -36,8 +40,8 @@ public class PileTest extends junit.framework.TestCase {
         PileI p = new question2.Pile(3);
         assertEquals(true, p.estVide());
 
-        p.empiler(new Integer(3));
-        assertEquals(" sommet ?? ", new Integer(3), p.sommet());
+        p.empiler(3);
+        assertEquals(" sommet ?? ", 3, p.sommet());
         assertEquals(1, p.taille());
         assertEquals(" depiler ?? ", new Integer(3), p.depiler());
         assertEquals(0, p.taille());
